@@ -1,6 +1,5 @@
 import buddylist from "spotify-buddylist";
-import { refreshBuddyToken } from "./auth.js";
-import { GLOBAL_PREFIX } from "./constants.js";
+import { refreshBuddyToken } from "./buddy.js";
 
 
 export async function Watcher() {
@@ -33,16 +32,16 @@ export async function Watcher() {
     
     if(!myListening.body?.item?.uri) return;
     
-    const current_last = await redis.lRange(me.body.uri, -1, -1);
+    const current_last = await redis.lRange(me.uri, -1, -1);
 
     if(current_last.length == 0 || JSON.parse(current_last[0]).uri != myListening.body.item.uri) {
-        console.log(`${me.body.display_name} is now listening to ${myListening.body.item.name}`);
+        console.log(`${me.display_name} is now listening to ${myListening.body.item.name}`);
 
-        await redis.rPush(me.body.uri, JSON.stringify({
+        await redis.rPush(me.uri, JSON.stringify({
             ...myListening.body.item,
             context: myListening.body.context,
         }));
 
-	await spotify.addTracksToPlaylist("6bELO4z5QWd5Ipjl5T983E", [myListening.body.item.uri]).catch(e => null);
+	    await spotify.addTracksToPlaylist("6bELO4z5QWd5Ipjl5T983E", [myListening.body.item.uri]).catch(e => null);
     }
 }

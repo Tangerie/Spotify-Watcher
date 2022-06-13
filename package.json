@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tangerie/spotify-manager": "^1.0.0",
     "dotenv": "^16.0.1",
     "open": "^8.4.0",
     "prompt": "^1.3.0",
@@ -18,5 +19,5 @@
     "spotify-buddylist": "^1.0.0",
     "spotify-web-api-node": "^5.0.2"
   },
-  "types": "src/index.d.ts"
+  "typings": "src/index.d.ts"
 }

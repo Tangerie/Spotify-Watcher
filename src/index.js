@@ -1,32 +1,32 @@
-import { getDatabase } from "./database.js";
-import { getAuthedSpotify } from './auth.js';
 
 import dotenv from "dotenv";
 import { Watcher } from "./watcher.js";
-import buddyList from "spotify-buddylist";
-import { asyncSleep } from "./util.js";
+import { ALL_SCOPES, createSpotifyClient } from "@tangerie/spotify-manager";
+import { createClient } from "redis";
+import { authBuddylist } from "./buddy.js";
 
 dotenv.config();
 
-const spotify = await getAuthedSpotify();
-global.spotify = spotify;
+global.redis = createClient({
+    url: process.env.REDIS_SERVER
+});
 
-global.me = await spotify.getMe();
+redis.connect();
 
-await asyncSleep(1000);
+global.spotify = await createSpotifyClient(redis, ALL_SCOPES);
 
-global.redis = getDatabase(1);
-await redis.connect();
+await authBuddylist();
+
+await redis.select(process.env.REDIS_DB_NUM);
+
+global.me = (await spotify.getMe()).body;
 
 await Watcher();
-await redis.disconnect();   
 
 setInterval(async () => {
-    await redis.connect();
     
     await Watcher();
 
-    await redis.disconnect();
 }, 60 * 1000);
 
 
