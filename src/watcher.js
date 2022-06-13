@@ -42,7 +42,7 @@ export async function Watcher() {
             ...myListening.body.item,
             context: myListening.body.context,
         }));
-    }
 
-    await spotify.addTracksToPlaylist("6bELO4z5QWd5Ipjl5T983E", [myListening.body.item.uri]).catch(e => null);
+	await spotify.addTracksToPlaylist("6bELO4z5QWd5Ipjl5T983E", [myListening.body.item.uri]).catch(e => null);
+    }
 }
