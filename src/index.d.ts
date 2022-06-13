@@ -7,6 +7,7 @@ declare global {
     var redis : RedisClientType;
     var accessToken : string;
     var spdccookie : string;
+    var me : SpotifyApi.CurrentUsersProfileResponse;
 }
 
 

@@ -17,5 +17,6 @@
     "redis": "^4.1.0",
     "spotify-buddylist": "^1.0.0",
     "spotify-web-api-node": "^5.0.2"
-  }
+  },
+  "types": "src/index.d.ts"
 }

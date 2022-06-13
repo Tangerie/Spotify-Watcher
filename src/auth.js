@@ -6,7 +6,7 @@ import prompt from 'prompt';
 import { getDatabase } from './database.js';
 import buddylist from "spotify-buddylist";
 
-const PREFIX = GLOBAL_PREFIX + "cfg_";
+const PREFIX = GLOBAL_PREFIX + "config:watcher:";
 
 prompt.start();
 

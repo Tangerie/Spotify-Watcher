@@ -20,4 +20,4 @@ export const SCOPES = [
     "user-library-read"
 ];
 
-export const GLOBAL_PREFIX = "sp_";
+export const GLOBAL_PREFIX = "";
