@@ -17,19 +17,23 @@ global.spotify = await createSpotifyClient(redis, ALL_SCOPES);
 
 await authBuddylist();
 
+
 await redis.select(process.env.REDIS_DB_NUM);
 
 global.me = (await spotify.getMe()).body;
 
-await Watcher();
 
-setInterval(async () => {
-    
+while(true) {
     await Watcher();
 
-}, 60 * 1000);
+    await sleep(60 * 1000);
+}
 
-
+function sleep(duration) {
+    return new Promise((resolve, reject) => {
+        setTimeout(resolve, duration);
+    })
+}
 
 // Pause Execution
 process.stdin.resume();

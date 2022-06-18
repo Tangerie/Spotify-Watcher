@@ -26,7 +26,6 @@ export async function Watcher() {
     const myListening = await spotify.getMyCurrentPlaybackState().catch(e => null);
     
     if(!myListening) {
-        console.log("Failed to API");
         return;
     };
     
@@ -42,6 +41,6 @@ export async function Watcher() {
             context: myListening.body.context,
         }));
 
-	    await spotify.addTracksToPlaylist("6bELO4z5QWd5Ipjl5T983E", [myListening.body.item.uri]).catch(e => null);
+	    await spotify.addTracksToPlaylist(process.env.TARGET_ALL_PLAYLIST, [myListening.body.item.uri]).catch(e => null);
     }
 }

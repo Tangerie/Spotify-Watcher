@@ -6,6 +6,8 @@ prompt.start();
 export async function refreshBuddyToken() {
     const b = await buddylist.getWebAccessToken(spdccookie);
     global.accessToken = b.accessToken;
+    
+    global.spotify.setAccessToken(global.accessToken);
 }
 
 export async function authBuddylist() {
